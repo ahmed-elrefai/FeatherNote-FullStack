@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if note %}
+        {{note.title}}
+        {% else %}
+            new note | FeatherNotes
+        {% endif %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'css/note.css' %}">
+    <style>
+        /* Modal CSS */
+.modal {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+    position: relative;
+    margin: 15% auto;
+    padding: 20px;
+    width: 300px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+button.confirmDeleteBtn {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+button.cancelDeleteBtn {
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#deleteBtn{
+    background-color: transparent;
+    position: fixed;
+    color: black;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    bottom: 5rem;
+    right: 15rem;
+    transition: all .3s;
+}
+#deleteBtn:hover{
+    color:grey;
+    cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+    <section>
+        {% if not note %}
+            <div class="container">
+                <header>
+                </header>
+                <form action="/note/" method="post">
+                    {% csrf_token %}
+                    <textarea id="title-area" name="title"  placeholder="Enter Title"></textarea>
+                    <textarea id="content-area" name="content" placeholder="Start typing..."></textarea>
+                    <input type="submit" id="saveBtn" value="Save">
+                </form>
+            </div>
+        {% else %}
+        <div class="container">
+            <form action="/note/{{note.id}}/" method="post">
+                {% csrf_token %}
+                <textarea id="title-area" name="title"  placeholder="Enter Title">{{note.title}}</textarea>
+                <textarea id="content-area" name="content" placeholder="Start typing...">{{note.content}}</textarea>
+                <input type="submit" id="saveBtn" value="Save">
+                <a type="button" id="deleteBtn">Delete</a>
+            </form>
+        </div>
+        <!-- Confirmation Modal -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete this note?</p>
+                <form action="{% url 'deletenote' note.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="confirmDeleteBtn">Yes, Delete</button>
+                    <button type="button" class="cancelDeleteBtn">Cancel</button>
+                </form>
+            </div>
+        </div>
+    {%endif%}
+    </section>
+    
+</body>
+<script>
+    document.getElementById('deleteBtn').addEventListener('click', function() {
+        document.getElementById('deleteModal').style.display = 'block';
+        history.replaceState(null, null, "/dashboard/");
+    });
+
+    document.querySelector('.cancelDeleteBtn').addEventListener('click', function() {
+        document.getElementById('deleteModal').style.display = 'none';
+        history.replaceState(null, null, "/dashboard/");
+    });
+</script>
+
+</html>

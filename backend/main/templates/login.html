@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FeatherNotes</title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+    <section>
+        <div class="title-div">
+            <p>Welcome Back! your thoughts are waiting</p>
+            <h2>Login</h2>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-inputs">
+                <div>
+                    <input class="input-field" type="text" placeholder="username" name="username">
+                </div>
+                <div>
+                    <input class="input-field" type="password" placeholder="password" name="password">
+                </div>
+            </div>
+            <div class="form-action">
+                <div>
+                    <p>no account? <a href="{%url 'signup'%}">start one here.</a></p>
+                </div>
+                <div>
+                    <input class="form-submit" type="submit" value="login">
+                </div>
+
+            </div>
+        </form>
+    </section>
+</body>
+</html>

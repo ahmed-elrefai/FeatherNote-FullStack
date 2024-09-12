@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeatherNotes | Your favorite thoughts plattform</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+</head>
+<body>
+    <section>
+        <div class="welcome-wrapper">
+            <div class="intro-div">
+                <h1>Welcome to <span>FeatherNotes</span></h1>
+                <p>light as feathers. fast as lightning.</p>
+            </div>
+            <div class="action-div">
+                <a href="{% url 'login' %}" class="start-button">Start journey</a>
+                <p>by <a href="https://linkedin.com/in/ahmed-elrefai" target="_blank">ahmed-elrefai</a> on linkedin</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

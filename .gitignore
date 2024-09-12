@@ -1,0 +1,24 @@
+# Virtual Environment
+venv/
+
+# Python
+*.pyc
+__pycache__/
+
+# Django
+*.log
+/media/
+static/
+
+# Django Migrations
+**/migrations/*
+# Environment variables
+.env
+
+# Redis
+dump.rdb
+*.rdb
+
+# Caching
+cache/
+*.cache
